@@ -48,24 +48,24 @@ class ReCaptchaComponent extends React.PureComponent<IProps> {
   }
 
   render() {
-    return <View style={{flex: 0.0001, width: 0, height: 0}}>
-      <WebView
-        ref={(ref) => {
-          this._webViewRef = ref
-        }}
-        javaScriptEnabled
-        originWhitelist={['*']}
-        automaticallyAdjustContentInsets
-        mixedContentMode={'always'}
-        injectedJavaScript={patchPostMessageJsCode}
-        source={{
-          html: getInvisibleRecaptchaContent(this.props.siteKey, this.props.action),
-          baseUrl: this.props.captchaDomain
-        }}
-        onMessage={(e: any) => {
-          this.props.onReceiveToken(e.nativeEvent.data)
-        }}/>
-    </View>
+    return <WebView
+      ref={(ref) => {
+        this._webViewRef = ref
+      }}
+      javaScriptEnabled
+      originWhitelist={['*']}
+      automaticallyAdjustContentInsets
+      mixedContentMode={'always'}
+      injectedJavaScript={patchPostMessageJsCode}
+      source={{
+        html: getInvisibleRecaptchaContent(this.props.siteKey, this.props.action),
+        baseUrl: this.props.captchaDomain
+      }}
+      onMessage={(e: any) => {
+        this.props.onReceiveToken(e.nativeEvent.data)
+      }}
+      containerStyle={{ height: 1, flex: 0, width: 1 }}
+      style={{opacity: 0.99}}/>
   }
 }
 
